@@ -1,6 +1,7 @@
 name: Monitoramento de Preços
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/2 * * * *' # Execute a cada 2 minutos
 
