@@ -13,6 +13,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Setup Chrome and ChromeDriver
+      uses: browser-actions/setup-chrome@latest
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -25,7 +28,7 @@ jobs:
     - name: Run monitoring script
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      run: python  automacao/script.py
+      run: python automacao/script.py
 
     - name: Push updates if any
       run: |
