@@ -1,3 +1,4 @@
+import os
 import time
 import requests
 import json
@@ -11,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 # configurações
-url_plataforma = ("")
+url_plataforma = ("https://monitoramento-precos.netlify.app")
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-gpu")
@@ -38,9 +39,9 @@ def pegar_preco():
 
 # função para enviar notificação para o Slack
 def enviar_notificacao_slack(mensagem):
-    url = 'https://hooks.slack.com/services/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'
+    slack_webhook_url = os.environ.get("SLACK_WEBHOOK_URL")
     payload = {"text": mensagem}
-    response = requests.post(url, json=payload)
+    response = requests.post(slack_webhook_url, json=payload)
     if response.status_code != 200:
         print(f"Erro ao enviar notificação para o Slack: {response.status_code} - {response.text}")
 
