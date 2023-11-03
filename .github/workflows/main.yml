@@ -1,0 +1,35 @@
+name: Monitoramento de Preços
+
+on:
+  schedule:
+    - cron: '*/2 * * * *' # Execute a cada 2 minutos
+
+jobs:
+  monitoramento:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install selenium requests
+
+    - name: Run monitoring script
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: python  automacao/script.py
+
+    - name: Push updates if any
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git commit -m "Update do preço" || echo "Sem mudanças para commitar"
+        git push
