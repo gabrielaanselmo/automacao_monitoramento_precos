@@ -10,43 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Verificando o código
       uses: actions/checkout@v2
 
-    - name: Setup Chrome and ChromeDriver
+    - name: Configurando o Chrome e o ChromeDriver
       uses: browser-actions/setup-chrome@latest
 
-    - name: Set up Python
+    - name: Configurando o Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.11'
 
-    - name: Install dependencies
+    - name: Instalando as dependências
       run: |
         pip install selenium requests
 
-    - name: Give execute permissions to chromedriver
+    - name: Conceder permissões de execução ao chromedriver
       run: |
         chmod +x drivers/chromedriver.exe
 
-    - name: Run monitoring script
+    - name: Executar script de monitoramento
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
         cd automacao
         python script.py
 
-        # ...
-
-    - name: Commit files
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add -A
-        git commit -m "Atualização automática dos dados" || echo "Sem mudanças para commitar"
-
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
