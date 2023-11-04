@@ -39,12 +39,10 @@ jobs:
     - name: Push updates if any
       run: |
         git config user.name "gabrielaanselmo"
-        git config user.email "gabrielaanselmao@gmail.com"
-        git remote set-url origin https://$GH_PAT@github.com/gabrielaanselmo/automacao_monitoramento_precos.git
+        git config user.email "gabrielaanselmo@gmail.com"
+        git remote set-url origin https://AUTOPUSHAUTH@github.com/gabrielaanselmo/automacao_monitoramento_precos.git
         git add .
         git commit -m "Update do preço" || echo "Sem mudanças para commitar"
         git push origin HEAD:main --follow-tags --force
       env:
-        GH_PAT: ${{ secrets.GH_PAT }}
-
-
+        GH_PAT: ${{ secrets.AUTOPUSHAUTH }}
