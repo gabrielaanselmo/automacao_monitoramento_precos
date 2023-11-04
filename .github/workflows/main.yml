@@ -25,6 +25,10 @@ jobs:
       run: |
         pip install selenium requests
 
+    - name: Give execute permissions to chromedriver
+      run: |
+        chmod +x drivers/chromedriver.exe
+
     - name: Run monitoring script
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
