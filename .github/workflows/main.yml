@@ -28,7 +28,9 @@ jobs:
     - name: Run monitoring script
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      run: python automacao/script.py
+      run: |
+        cd automacao
+        python script.py
 
     - name: Push updates if any
       run: |
