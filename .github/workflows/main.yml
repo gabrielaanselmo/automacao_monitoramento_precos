@@ -36,13 +36,17 @@ jobs:
         cd automacao
         python script.py
 
-    - name: Push updates if any
+        # ...
+
+    - name: Commit files
       run: |
-        git config user.name "gabrielaanselmo"
-        git config user.email "gabrielaanselmo@gmail.com" # Ensure the email is correct here
-        git remote set-url origin https://AUTOPUSHAUTH@github.com/gabrielaanselmo/automacao_monitoramento_precos.git
-        git add .
-        git commit -m "Update do preço" || echo "Sem mudanças para commitar"
-        git push origin HEAD:main --follow-tags --force
-      env:
-        GH_PAT: ${{ secrets.AUTOPUSHAUTH }} # Update this line to use the new PAT name
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -A
+        git commit -m "Atualização automática dos dados" || echo "Sem mudanças para commitar"
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
