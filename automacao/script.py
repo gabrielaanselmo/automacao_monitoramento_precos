@@ -18,15 +18,13 @@ chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--window-size=1920x1080")
 
 # caminho para o chromedriver
-chromedriver_path = "../drivers/chromedriver.exe"
+#chromedriver_path = "../drivers/chromedriver.exe"
 
 # criando o serviço
-service = Service(chromedriver_path)
+#service = Service(chromedriver_path)
 
 # inicializa o driver do Selenium
-driver = webdriver.Chrome(service=service, options=chrome_options)
-driver.implicitly_wait(10)
-
+driver = webdriver.Chrome(options=chrome_options)
 
 # função para pegar o preço atual na página
 def pegar_preco():
