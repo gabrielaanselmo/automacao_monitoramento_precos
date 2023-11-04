@@ -36,20 +36,13 @@ jobs:
         cd automacao
         python script.py
 
-    - name: Setup SSH for pushing to repo
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-        git remote set-url origin git@github.com:gabrielaanselmo/automacao_monitoramento_precos.git
-
     - name: Push updates if any
       run: |
         git config user.name "gabrielaanselmo"
-        git config user.email "gabrielaanselmao@gmail.com"
+        git config user.email "gabrielaanselmo@gmail.com" # Ensure the email is correct here
+        git remote set-url origin https://AUTOPUSHAUTH@github.com/gabrielaanselmo/automacao_monitoramento_precos.git
         git add .
         git commit -m "Update do preço" || echo "Sem mudanças para commitar"
         git push origin HEAD:main --follow-tags --force
+      env:
+        GH_PAT: ${{ secrets.AUTOPUSHAUTH }} # Update this line to use the new PAT name
