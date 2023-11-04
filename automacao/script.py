@@ -9,7 +9,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
 # configurações
 url_plataforma = ("https://monitoramento-precos.netlify.app")
 chrome_options = Options()
@@ -18,13 +17,14 @@ chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--window-size=1920x1080")
 
 # caminho para o chromedriver
-#chromedriver_path = "../drivers/chromedriver.exe"
+# chromedriver_path = "../drivers/chromedriver.exe"
 
 # criando o serviço
-#service = Service(chromedriver_path)
+# service = Service(chromedriver_path)
 
 # inicializa o driver do Selenium
 driver = webdriver.Chrome(options=chrome_options)
+
 
 # função para pegar o preço atual na página
 def pegar_preco():

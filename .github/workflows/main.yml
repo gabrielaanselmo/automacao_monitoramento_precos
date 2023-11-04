@@ -3,7 +3,7 @@ name: Monitoramento de Preços
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/2 * * * *' # Execute a cada 2 minutos
+    - cron: '0 */5 * * *' # Execute a cada 5 horas
 
 jobs:
   monitoramento:
@@ -38,8 +38,11 @@ jobs:
 
     - name: Push updates if any
       run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git config user.name "gabrielaanselmo"
+        git config user.email "gabrielaanselmao@gmail.com"
         git add .
         git commit -m "Update do preço" || echo "Sem mudanças para commitar"
-        git push
+        git push origin HEAD:main --follow-tags --force
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+
